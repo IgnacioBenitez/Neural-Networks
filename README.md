@@ -8,5 +8,4 @@ This project implements the training of a neural network using basic matrix and 
 - Implemented using NumPy for matrix and vector operations.
 - Error tracking and visualization with matplotlib.
 
-![Descripción de la imagen](https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230602113310/Neural-Networks-Architecture.png)
-
+![Arquitecture of Artificial Neural Network](https://media.geeksforgeeks.org/wp-content/cdn-uploads/20230602113310/Neural-Networks-Architecture.png)
