@@ -109,3 +109,7 @@ plt.xlabel("Iteration")
 plt.ylabel("Error")
 plt.title("Evolution of Error")
 plt.show()
+
+
+# sklearn no se
+# pythorch no se

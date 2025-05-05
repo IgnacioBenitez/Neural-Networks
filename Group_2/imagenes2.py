@@ -1,0 +1,84 @@
+import matplotlib.pyplot as plt
+from sklearn.neural_network import MLPClassifier
+from sklearn import datasets, metrics, svm
+from sklearn.model_selection import train_test_split
+digits = datasets.load_digits()
+print(digits.data.shape)
+
+print(digits.target)
+print(digits.data)
+#Imprimiendo una instancia
+print(digits.data[0])
+
+
+#dibujando la imagen del array
+plt.imshow(digits.images[1701], cmap=plt.cm.gray_r, interpolation="nearest")
+plt.show()
+
+
+#flatten the images
+n_samples = len(digits.images)
+#Estamos aplanando los datos
+data = digits.images.reshape((n_samples, -1))
+#verificar que se aplano
+print("Shape antes de aplanar: ", digits.images.shape)
+print("Shape despues de aplanar: ",data.shape)
+
+# keras :0 framework 
+# pytorch
+
+
+#Etapa de entrenamiento
+#clf = svm.SVC(gamma=0.001)
+clf = MLPClassifier(hidden_layer_sizes=(50,25,10),batch_size=32,max_iter=500,learning_rate_init=0.001, verbose=True)
+clf3 = MLPClassifier(hidden_layer_sizes=(10,),activation='tanh', solver='sgd',batch_size=32,max_iter=500,learning_rate_init=0.001)
+clf4 = MLPClassifier(hidden_layer_sizes=(30,10),batch_size=32,max_iter=500,learning_rate_init=0.001)
+
+#split data into 50% train
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(data, digits.target, test_size = 0.2, shuffle = True)
+
+#entrenando el MLP
+clf.fit(X_train, y_train)
+clf3.fit(X_train, y_train)
+clf4.fit(X_train, y_train)
+
+predicciones = clf.predict(X_test)
+prediccionesclf3 = clf3.predict(X_test)
+prediccionesclf4 = clf4.predict(X_test)
+
+#obtener las metreicas de evaluacion
+print(clf.score(X_test, y_test))
+
+#imprimiendo el reporte de clasificacion
+from sklearn.metrics import classification_report
+reporte = classification_report(y_test, predicciones)
+print("Reporte de clasificacion: ", reporte)
+
+from sklearn.metrics import classification_report
+reporte = classification_report(y_test, prediccionesclf3)
+print("Reporte de clasificacion: ", reporte)
+
+from sklearn.metrics import classification_report
+reporte = classification_report(y_test, prediccionesclf4)
+print("Reporte de clasificacion: ", reporte)
+
+
+from sklearn.metrics import f1_score
+f1 = f1_score(y_test, predicciones, average='macro')
+print("F1-score: ", f1)
+
+#imprimiendo matriz de confusion
+from sklearn.metrics import confusion_matrix
+print("Matriz de confusion: ", confusion_matrix(y_test, predicciones))
+
+#prediciendo un numero en un indice especifico
+nueva_instancia = X_test[5].reshape(8,8)
+
+# Predecir
+prediccion = clf.predict([X_test[5]])[0]
+
+print(y_test)
+
+plt.imshow(nueva_instancia, cmap=plt.cm.gray_r, interpolation="nearest")
+plt.show()
